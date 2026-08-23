@@ -133,7 +133,7 @@ install_packages(){
         libxcb-glx0-dev mpv libxcb-util-dev libncursesw5-dev libfftw3-dev \
         libiniparser-dev make gcc autoconf automake libtool libx11-dev libxkbcommon-dev libxrender-dev \
         libxcomposite-dev libxkbcommon-x11-dev libpam0g-dev libxcb-dpms0-dev libjpeg-dev libgif-dev \
-        libgtk-layer-shell-dev libdbusmenu-glib-dev libgtk-3-dev libdbusmenu-gtk3-dev adwaita-icon-theme dunst pipx
+        libgtk-layer-shell-dev libdbusmenu-glib-dev libgtk-3-dev libdbusmenu-gtk3-dev adwaita-icon-theme dunst pipx pkg-config
 
     if [ "$distro" = "kali" ]; then
         sudo apt install -y  libdbusmenu-gtk3-4 seclists libpcre3 libpcre3-dev
@@ -373,9 +373,9 @@ if [ "$EUID" -eq 0 ]; then
     exit 1
 elif grep -q -i "kali" /etc/os-release; then
     echo -e "${sb}[+] ${y}Distro ${sb}Kali Linux${reset}\n"
-    if ! grep -qF "deb http://http.kali.org/kali kali-rolling main non-free contrib" /etc/apt/sources.list; then
-        echo "deb http://http.kali.org/kali kali-rolling main non-free contrib" | sudo tee -a /etc/apt/sources.list
-    fi
+    #if ! grep -qF "deb http://http.kali.org/kali kali-rolling main non-free contrib" /etc/apt/sources.list; then
+    #    echo "deb http://http.kali.org/kali kali-rolling main non-free contrib" | sudo tee -a /etc/apt/sources.list
+    #fi
     distro=kali
 elif grep -q -i "parrot" /etc/os-release; then
     echo -e "${sb}[+] ${y}Distro ${g}Parrot OS${reset}\n"

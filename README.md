@@ -70,7 +70,7 @@ Tested and fully supported on clean installations of the following rolling and s
 ### Parrot OS 7
 <img width="1366" height="768" alt="Image" src="https://github.com/user-attachments/assets/8789fc63-d7df-4556-8d11-8feef97a2f77" />
 
-### Kali Linux 2026.7
+### Kali Linux 2026.2
 <img width="1366" height="768" alt="Kali Linux BSPWM Setup" src="https://github.com/user-attachments/assets/8295adf5-2bac-4810-a42d-714411cd80a9" />
 
 ---

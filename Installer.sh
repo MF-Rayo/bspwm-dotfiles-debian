@@ -118,39 +118,48 @@ system_update(){
 
 install_packages(){
     local distro=$1
-    sudo apt install -y build-essential git vim libxcb-util0-dev libxcb-ewmh-dev \
-        libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev \
-        libasound2-dev libxcb-xtest0-dev libxcb-shape0-dev jq xxhash feh scrot scrub\
-        rofi xclip bat locate acpi bspwm sxhkd imagemagick cmatrix ifstat bc btop playerctl \
-        fzf ranger fastfetch kitty wmname zsh suckless-tools numlockx xdotool \
-        ueberzug cmake cmake-data pkg-config python3-sphinx libcairo2-dev libxcb1-dev \
-        libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-xkb-dev \
-        libxcb-xrm-dev libxcb-cursor-dev libpulse-dev libjsoncpp-dev libmpdclient-dev \
-        libuv1-dev libnl-genl-3-dev libxdamage-dev libxfixes-dev meson libxext-dev \
-        libxcb-damage0-dev libepoxy-dev libxcb-xfixes0-dev libxcb-render-util0-dev \
-        libxcb-render0-dev libxcb-present-dev libpixman-1-dev libdbus-1-dev libconfig-dev \
-        libgl1-mesa-dev libpcre2-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev \
-        libxcb-glx0-dev mpv libxcb-util-dev libncursesw5-dev libfftw3-dev \
-        libiniparser-dev make gcc autoconf automake libtool libx11-dev libxkbcommon-dev libxrender-dev \
-        libxcomposite-dev libxkbcommon-x11-dev libpam0g-dev libxcb-dpms0-dev libjpeg-dev libgif-dev \
-        libgtk-layer-shell-dev libdbusmenu-glib-dev libgtk-3-dev libdbusmenu-gtk3-dev adwaita-icon-theme dunst pipx pkg-config
 
-    if [ "$distro" = "kali" ]; then
-        sudo apt install -y  libdbusmenu-gtk3-4 seclists libpcre3 libpcre3-dev
-    elif [ "$distro" = "parrot" ]; then
-        # Dependencias para Parrot (backports)
-        sudo apt install -y libglib2.0-dev libpango1.0-dev libjson-glib-dev \
-            ninja-build libatk-bridge2.0-dev libatk1.0-dev libatspi2.0-dev \
-            libwayland-dev libwebp-dev seclists libpcre3 libpcre3-dev
+    # Parrot 7
+    if [ "$distro" = "parrot" ]; then
+        sudo apt install -y -t parrot-backports \
+            libatk1.0-dev libatk-bridge2.0-dev libatspi2.0-dev \
+            libxkbcommon-dev libxkbcommon-x11-dev \
+            libglib2.0-dev libpango1.0-dev libjson-glib-dev \
+            libwayland-dev libwebp-dev seclists
+    # Kali 2026.2
+    elif [ "$distro" = "kali" ]; then
+        sudo apt install -y libdbusmenu-gtk3-4 seclists
+    # Debian 13
     else
-        sudo apt install -y gawk curl pip net-tools rsync
+        sudo apt install -y gawk curl python3-pip net-tools rsync
     fi
+
+    # Paquetes base y entorno BSPWM
+    sudo apt install -y \
+        bspwm sxhkd rofi feh scrot dunst kitty zsh \
+        adwaita-icon-theme xclip numlockx xdotool \
+        imagemagick mpv playerctl btop acpi bc jq xxhash \
+        bat fzf ranger fastfetch cmatrix locate scrub pipx polybar
+
+    # Dependencias para compilar repositorios
+    sudo apt install -y \
+        build-essential make gcc autoconf automake libtool meson ninja-build \
+        pkg-config cmake curl uthash-dev libpulse-dev \
+        libgtk-3-dev libgtk-layer-shell-dev libdbusmenu-gtk3-dev libdbusmenu-glib-dev \
+        libcairo2-dev libpango1.0-dev libgdk-pixbuf-2.0-dev libepoxy-dev \
+        libev-dev libpam0g-dev libconfig-dev libdbus-1-dev libpcre2-dev \
+        libfftw3-dev libasound2-dev libiniparser-dev libncursesw5-dev \
+        libx11-dev libx11-xcb-dev libxext-dev libxrender-dev libxcomposite-dev \
+        libxdamage-dev libxfixes-dev libpixman-1-dev libgl1-mesa-dev \
+        libxcb1-dev libxcb-composite0-dev libxcb-damage0-dev libxcb-dpms0-dev \
+        libxcb-glx0-dev libxcb-image0-dev libxcb-present-dev libxcb-randr0-dev \
+        libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev libxcb-util-dev \
+        libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev
 }
 
 clone_repositories(){
     mkdir -p ~/github
     cd ~/github
-    git clone --recursive https://github.com/polybar/polybar
     git clone https://github.com/elkowar/eww.git
     git clone https://github.com/yshui/picom.git
     git clone https://github.com/karlstav/cava.git
@@ -168,13 +177,6 @@ compiling_repositories(){
 
     cd ~/github/ble.sh
     make install PREFIX=$HOME/.local
-
-    cd ~/github/polybar
-    mkdir build
-    cd build
-    cmake ..
-    make -j$(nproc)
-    sudo make install
 
     cd ~/github/cava
     ./autogen.sh
@@ -373,9 +375,6 @@ if [ "$EUID" -eq 0 ]; then
     exit 1
 elif grep -q -i "kali" /etc/os-release; then
     echo -e "${sb}[+] ${y}Distro ${sb}Kali Linux${reset}\n"
-    #if ! grep -qF "deb http://http.kali.org/kali kali-rolling main non-free contrib" /etc/apt/sources.list; then
-    #    echo "deb http://http.kali.org/kali kali-rolling main non-free contrib" | sudo tee -a /etc/apt/sources.list
-    #fi
     distro=kali
 elif grep -q -i "parrot" /etc/os-release; then
     echo -e "${sb}[+] ${y}Distro ${g}Parrot OS${reset}\n"

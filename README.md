@@ -48,13 +48,13 @@ cd bspwm-dotfiles-debian && chmod +x Installer.sh
 
 ## Select desktop environment
 
-### Debian 
+### Debian 13.6
 <img width="876" height="396" alt="Image" src="https://github.com/user-attachments/assets/f9e6a383-d64c-46cc-a566-a70883b551cc" />
 
-### Kali Linux
+### Kali Linux 2026.2
 <img width="897" height="381" alt="Image" src="https://github.com/user-attachments/assets/1bbd5ed6-f7c0-44f8-96be-8b7698f03700" />
 
-### Parrot OS
+### Parrot OS 7
 <img width="858" height="447" alt="Image" src="https://github.com/user-attachments/assets/f37eadec-2724-474c-aec6-0701cbde9b24" />
 
 ---
@@ -64,13 +64,13 @@ cd bspwm-dotfiles-debian && chmod +x Installer.sh
 
 Tested and fully supported on clean installations of the following rolling and stable bases:
 
-### Debian
+### Debian 13.6
 <img width="1366" height="768" alt="Debian BSPWM Setup" src="https://github.com/user-attachments/assets/bfa4bf49-7872-4906-be71-fa6d73d31b55" />
 
-### Parrot OS
+### Parrot OS 7
 <img width="1366" height="768" alt="Image" src="https://github.com/user-attachments/assets/8789fc63-d7df-4556-8d11-8feef97a2f77" />
 
-### Kali Linux
+### Kali Linux 2026.7
 <img width="1366" height="768" alt="Kali Linux BSPWM Setup" src="https://github.com/user-attachments/assets/8295adf5-2bac-4810-a42d-714411cd80a9" />
 
 ---

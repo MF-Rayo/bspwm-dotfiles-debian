@@ -37,7 +37,7 @@ Run the automated script to install core components, and custom configuration fi
 
 ```bash
 # Clone the repository
-git clone https://github.com/MF-Rayo/bspwm-dotfiles-debian.git
+git clone https://github.com/MF-Rayo/bspwm-dotfiles-debian.git --depth 1
 
 # Enter the directory and grant execution permissions
 cd bspwm-dotfiles-debian && chmod +x Installer.sh

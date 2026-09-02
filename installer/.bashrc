@@ -51,6 +51,9 @@ if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
     alias dir='dir --color=auto'
+    alias echo='echo --color=auto'
+    alias cd='dir --color=auto'
+    alias pwd='dir --color=auto'
     alias vdir='vdir --color=auto'
 
     alias grep='grep --color=auto'
@@ -174,10 +177,10 @@ ble-face -s syntax_error 'fg=203'
 ble-face -s filename_directory 'fg=#a9b1d6'
 ble-face -s filename_directory_sticky 'fg=#a9b1d6'
 
-
 ble-bind -f 'Home'      'beginning-of-line'
 ble-bind -f 'End'       'end-of-line'
 ble-bind -f 'Delete'    'delete-forward-char'
 ble-bind -f 'M-Right'   'forward-cword'
 ble-bind -f 'M-Left'    'backward-cword'
 ble-bind -f 'M-DEL'     'kill-backward-cword'
+bleopt exec_errexit_mark=

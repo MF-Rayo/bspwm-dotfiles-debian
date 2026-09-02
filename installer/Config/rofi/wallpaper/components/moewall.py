@@ -1,5 +1,5 @@
 #!/bin/python
-import os, sys, re, json, shutil, subprocess, cloudscraper
+import os, sys, json, shutil, cloudscraper
 from bs4 import BeautifulSoup
 from concurrent.futures import ThreadPoolExecutor
 
@@ -58,7 +58,7 @@ def download_all_raw(data, raw_dir):
     with ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
         executor.map(lambda item: download_raw(item, raw_dir), data)
 
-def download_wallpaper(name, json_path, download_dir, query, copy_file): 
+def download_wallpaper(name, json_path, download_dir, copy_file): 
     with open(f"{json_path}/map.json", "r", encoding="utf-8") as f:
         data = json.load(f)
 
@@ -107,16 +107,15 @@ def main():
         download_all_raw(data, f"{base_cache}/raw")
     
     if sys.argv[1] == "--download":
-        query = sys.argv[2]
-        name = sys.argv[3]
-        base_cache = sys.argv[4]
-        download_dir = sys.argv[5]
-        copy = sys.argv[6]
+        name = sys.argv[2]
+        base_cache = sys.argv[3]
+        download_dir = sys.argv[4]
+        copy = sys.argv[5]
 
         if not name:
             sys.exit(0)
 
-        download_wallpaper(name, base_cache, download_dir, query, copy)
+        download_wallpaper(name, base_cache, download_dir, copy)
 
 if __name__ == "__main__":
     main()

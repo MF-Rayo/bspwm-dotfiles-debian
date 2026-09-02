@@ -82,12 +82,13 @@ moewalls(){
             THUMB="$BASE_CACHE/moewall/processed/${FILENAME}.jpg"
 
             if [ -f "$THUMB" ]; then
-                printf '\u200b%s\000icon\037%s\n' "$TITLE" "$THUMB"
+                printf '\u200b%s\000icon\037%s\n' "$FILENAME" "$THUMB"
             fi
         done >> "$MENU_FILE"
 
     TOTAL=$(jq '. | length' "$BASE_CACHE/moewall/map.json")
     SELECTED=$(menu_rofi "$MENU_FILE" "$TOTAL")
+
     rm -f "$MENU_FILE"
     SELECTED="${SELECTED#$'\u200b'}" 
 
@@ -101,7 +102,7 @@ moewalls(){
             ;;
         *)
             notify-send -t 2000 "MoeWall:  Downloading wallpaper"
-            ~/.config/rofi/wallpaper/components/moewall.py --download "$QUERY" "$SELECTED" "$BASE_CACHE/moewall" "$DIR_WALLPAPERS" "$HOME/.Wallpaper/"
+            ~/.config/rofi/wallpaper/components/moewall.py --download "$SELECTED" "$BASE_CACHE/moewall" "$DIR_WALLPAPERS" "$HOME/.Wallpaper/"
             ;;
     esac        
 }

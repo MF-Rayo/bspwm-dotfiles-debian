@@ -139,7 +139,7 @@ install_packages(){
         bspwm sxhkd rofi feh scrot dunst kitty zsh \
         adwaita-icon-theme xclip numlockx xdotool \
         imagemagick mpv playerctl btop acpi bc jq xxhash \
-        bat fzf ranger fastfetch cmatrix locate scrub pipx polybar
+        bat fzf ranger fastfetch cmatrix locate scrub pipx polybar wireless-tools
 
     # Dependencias para compilar repositorios
     sudo apt install -y \

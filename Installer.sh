@@ -2,19 +2,13 @@
 # ==============================================================================
 #  Auto Installer script for BSPWM Environment
 #  Created by: r4yx
+#  Distro: Debian
 #  Date: 20/06/2026
 # ==============================================================================
-#  [COMPATIBILIDAD / COMPATIBILITY]
-#  - Diseñado principalmente para / Primary target: ParrotOS & Kali Linux.
-#  - Compatible con otras distribuciones basadas en DEBIAN (con X11).
-#    (Se pueden requerir pequeñas adaptaciones según los paquetes del sistema).
-#
-#  [DESCRIPCIÓN / DESCRIPTION]
 #  Este script automatiza la instalación y configuración del entorno de trabajo
 #  con BSPWM. Incluye configuraciones personalizadas, scripts propios, así como
 #  modificaciones e integraciones de herramientas y recursos de terceros.
 #
-#  [CRÉDITOS & RECONOCIMIENTO / CREDITS & DISCLAIMER]
 #  Este proyecto integra y adapta módulos/configuraciones creadas por otros 
 #  autores de la comunidad. Todos los derechos de los componentes
 #  de terceros pertenecen a sus respectivos creadores.
@@ -123,7 +117,6 @@ install_packages(){
     if [ "$distro" = "parrot" ]; then
         sudo apt install -y -t parrot-backports \
             libatk1.0-dev libatk-bridge2.0-dev libatspi2.0-dev \
-            libxkbcommon-dev libxkbcommon-x11-dev \
             libglib2.0-dev libpango1.0-dev libjson-glib-dev \
             libwayland-dev libwebp-dev seclists
     # Kali 2026.2
@@ -143,8 +136,8 @@ install_packages(){
 
     # Dependencias para compilar repositorios
     sudo apt install -y \
-        build-essential make gcc autoconf automake libtool meson ninja-build \
-        pkg-config cmake curl uthash-dev libpulse-dev \
+        build-essential make gcc autoconf automake libtool meson ninja-build libjpeg-dev libgif-dev \
+        pkg-config cmake curl uthash-dev libpulse-dev libxkbcommon-dev libxkbcommon-x11-dev \
         libgtk-3-dev libgtk-layer-shell-dev libdbusmenu-gtk3-dev libdbusmenu-glib-dev \
         libcairo2-dev libpango1.0-dev libgdk-pixbuf-2.0-dev libepoxy-dev \
         libev-dev libpam0g-dev libconfig-dev libdbus-1-dev libpcre2-dev \

@@ -7,9 +7,8 @@ An automated installation script to deploy a fully customized BSPWM desktop envi
 ## Table of Contents
 
 - [Features](#features)
-- [Installation & Setup](#install)
-- [Compatibility](#compatibility)
 - [Themes](#themes)
+- [Installation & Setup](#install)
 - [Rofi](#rofi)
 - [Keybindings](#shortcuts)
 - [Api Keys](#apikey)
@@ -56,22 +55,6 @@ cd bspwm-dotfiles-debian && chmod +x Installer.sh
 
 ### Parrot OS 7
 <img width="858" height="447" alt="Image" src="https://github.com/user-attachments/assets/f37eadec-2724-474c-aec6-0701cbde9b24" />
-
----
-
-<a name="compatibility"></a>
-## Compatibility
-
-Tested and fully supported on clean installations of the following rolling and stable bases:
-
-### Debian 13.6
-<img width="1366" height="768" alt="Debian BSPWM Setup" src="https://github.com/user-attachments/assets/bfa4bf49-7872-4906-be71-fa6d73d31b55" />
-
-### Parrot OS 7
-<img width="1366" height="768" alt="Image" src="https://github.com/user-attachments/assets/8789fc63-d7df-4556-8d11-8feef97a2f77" />
-
-### Kali Linux 2026.2
-<img width="1366" height="768" alt="Kali Linux BSPWM Setup" src="https://github.com/user-attachments/assets/8295adf5-2bac-4810-a42d-714411cd80a9" />
 
 ---
 

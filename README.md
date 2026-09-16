@@ -53,7 +53,7 @@ cd bspwm-dotfiles-debian && chmod +x Installer.sh
 ### Kali Linux 2026.2
 <img width="897" height="381" alt="Image" src="https://github.com/user-attachments/assets/1bbd5ed6-f7c0-44f8-96be-8b7698f03700" />
 
-### Parrot OS 7
+### Parrot OS 7.3
 <img width="858" height="447" alt="Image" src="https://github.com/user-attachments/assets/f37eadec-2724-474c-aec6-0701cbde9b24" />
 
 ---

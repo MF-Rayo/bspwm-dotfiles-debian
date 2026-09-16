@@ -113,9 +113,13 @@ system_update(){
 install_packages(){
     local distro=$1
 
-    # Parrot 7
+    # Parrot 7.3
     if [ "$distro" = "parrot" ]; then
-        sudo apt install -y -t parrot-backports \
+        sudo apt install -y \
+            libxkbcommon0=1.13.1-1~bpo13+1 \
+            libxkbcommon-x11-0=1.13.1-1~bpo13+1 \
+            libxkbcommon-dev=1.13.1-1~bpo13+1 \
+            libxkbcommon-x11-dev=1.13.1-1~bpo13+1 \
             libatk1.0-dev libatk-bridge2.0-dev libatspi2.0-dev \
             libglib2.0-dev libpango1.0-dev libjson-glib-dev \
             libwayland-dev libwebp-dev seclists

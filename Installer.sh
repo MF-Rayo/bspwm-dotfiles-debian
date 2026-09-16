@@ -227,6 +227,7 @@ config_pulseaudio(){
     systemctl --user enable --now pulseaudio
 
     rm -rf ~/.config/pulse
+    pulseaudio --start
 }
 
 install_neovim() {
@@ -318,7 +319,7 @@ themes_config(){
     sudo ln -sfv ~/.zshrc /root/.zshrc
     echo -e '\nexport TERM=xterm-256color' | sudo tee -a /root/.zshrc
     
-    for script in settarget settings shortcuts whichSystem.py xwall wifi ccmatrix; do
+    for script in settarget bspwm_settings shortcuts whichSystem.py xwall wifi ccmatrix; do
         sudo chmod +x /usr/local/bin/$script
     done
 

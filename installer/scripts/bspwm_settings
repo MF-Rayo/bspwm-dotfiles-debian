@@ -16,9 +16,9 @@ kitty_style(){
 picom_style(){
     local style="$1"
     if [[ "$style" == "100" ]]; then
-        cp -r ~/.BSPWM/installer/Config/picom/blur_picom.conf ~/.config/picom/picom.conf
-    else
         cp -r ~/.BSPWM/installer/Config/picom/picom.conf ~/.config/picom/picom.conf
+    else
+        cp -r ~/.BSPWM/installer/Config/picom/no_blur_picom.conf ~/.config/picom/picom.conf
     fi
 }
 
@@ -47,7 +47,7 @@ kill_(){
 MENU="$(rofi -no-config -no-lazy-grab -sep "|" -dmenu -i -p ' Settings' \
 -theme-str "entry { placeholder: \"BSPWM\"; }" -theme $HOME/.config/rofi/notes/note.rasi \
 <<< "󰄛 KittyㅤTransparencyㅤ80%|󰄛 KittyㅤTransparencyㅤ50%|󰄛 KittyㅤTransparencyㅤ0%|󰄛 KittyㅤBackgroundㅤAlt|󱂬 PicomㅤBlurㅤ100%| \
-󱂬 PicomㅤBlurㅤ0%|󰢡 EnableㅤBorders|󰢤 DisableㅤBorders󱓇 KillㅤPolybar|󱓇 KillㅤEWW|")"
+󱂬 PicomㅤBlurㅤ0%|󰢡 EnableㅤBorders|󰢤 DisableㅤBorders|󱓇 KillㅤPolybar|󱓇 KillㅤEWW|")"
             case "$MENU" in
 				*KittyㅤTransparencyㅤ80%) kitty_style "0.5" ;;
 				*KittyㅤTransparencyㅤ50%) kitty_style "0.8" ;;

@@ -198,3 +198,11 @@ ICON_BG='${color1}'
 DIR_FG='${color7}'
 DIR_BG='${color0}'
 EOF
+
+cat > ~/.BSPWM/Themes/ZeroColor/colors/kitty.ini << EOF
+background #000000
+active_tab_background ${color1}
+active_tab_foreground ${color0}
+inactive_tab_background ${color0}
+inactive_tab_foreground ${color7}
+EOF

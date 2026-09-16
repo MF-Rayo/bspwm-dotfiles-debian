@@ -117,10 +117,9 @@ if [ -n "$wall_selection" ]; then
 
     if pgrep -x xwinwrap > /dev/null; then
         pkill xwinwrap
-        while pgrep -x xwinwrap > /dev/null; do
-            sleep 0.05
-        done
     fi
+
+    sleep 0.5
 
     if echo "$ext" | grep -iqE 'jpg|jpeg|png|webp'; then
         cp -r "$selected" "$DIR_WALLPAPER/AppliedWallpaper.png"

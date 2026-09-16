@@ -1,0 +1,5 @@
+ICON_FG='#2F343F'
+ICON_BG='#7dcfff'
+
+DIR_FG='#FFFFFF'
+DIR_BG='#2F343F'

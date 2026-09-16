@@ -117,9 +117,10 @@ if [ -n "$wall_selection" ]; then
 
     if pgrep -x xwinwrap > /dev/null; then
         pkill xwinwrap
+        while pgrep -x xwinwrap > /dev/null; do
+            sleep 0.05
+        done
     fi
-
-    sleep 0.5
 
     if echo "$ext" | grep -iqE 'jpg|jpeg|png|webp'; then
         cp -r "$selected" "$DIR_WALLPAPER/AppliedWallpaper.png"
@@ -130,21 +131,21 @@ if [ -n "$wall_selection" ]; then
         resolution=$(xrandr | grep '*' | awk '{print $1}')
         xwinwrap -g "${resolution}+0+0" -ni -s -st -sp -b -nf -fdt -argb -- \
             mpv -wid WID --loop --no-audio --no-terminal --panscan=1 "$selected" &
-    
-        nice -n 19 ionice -c 3 ffmpeg -y -ss 00:00:00 -i "$selected" \
-            -vframes 1 -q:v 2 -threads 1 "${DIR_WALLPAPER}/AppliedWallpaper.png" 2>/dev/null
 
-        static_name="Static-${wall_selection%.*}.png"
-        
-        destinos=(
-            "$HOME/.Wallpaper/${static_name}"
-            "$HOME/.BSPWM/Themes/$THEME/Wallpaper/AppliedWallpaper.png"
-            "$HOME/.BSPWM/Themes/$THEME/Wallpaper/${static_name}"
-        )
-        
-        for dest in "${destinos[@]}"; do
-            cp "${DIR_WALLPAPER}/AppliedWallpaper.png" "$dest"
-        done
+        (
+            nice -n 19 ionice -c 3 ffmpeg -y -i "$selected" \
+                -vf "select=eq(n\,0)" -vframes 1 \
+                "${DIR_WALLPAPER}/AppliedWallpaper.png" 2>/dev/null
+
+            static_name="Static-${wall_selection%.*}.png"
+            for dest in \
+                "$HOME/.Wallpaper/${static_name}" \
+                "$HOME/.BSPWM/Themes/$THEME/Wallpaper/AppliedWallpaper.png" \
+                "$HOME/.BSPWM/Themes/$THEME/Wallpaper/${static_name}"
+            do
+                cp "${DIR_WALLPAPER}/AppliedWallpaper.png" "$dest"
+            done
+        ) &
     fi
 
     if [ "$THEME" = "ZeroColor" ]; then

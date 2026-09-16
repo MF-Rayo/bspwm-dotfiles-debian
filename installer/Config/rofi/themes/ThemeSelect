@@ -1,6 +1,6 @@
 #!/bin/bash
 
-THEMES_PREVIEWS="$HOME/.BSPWM/.img/Themes"
+THEMES_PREVIEWS="$HOME/.config/rofi/themes/preview/Themes"
 CONFIG="$HOME/.config/theme/config.json"
 THEME=$(jq -r '.theme' "$CONFIG")
 ROFI="$HOME/.config/rofi/themes/config.rasi"
@@ -27,9 +27,9 @@ else
     jq --arg p "$SELECTED_THEME" '.theme = $p' "$CONFIG" > /tmp/config.tmp && mv /tmp/config.tmp "$CONFIG"
     
     pkill -x eww 
-    pkill -f "$HOME/.config/eww/Bar.sh"
+    pkill -f "~/.config/eww/Bar.sh"
 
-    rm -rf "$HOME.p10k.zsh" "$HOME/.config/cava/config" \
+    rm -rf "$HOME/.config/cava/config" \
         "$HOME/.config/fastfetch/config.jsonc" \
         "$HOME/.config/dunst/colors.conf" \
         "$HOME/.Wallpaper" 2>/dev/null
@@ -38,7 +38,6 @@ else
         ~/.config/bin/scripts/color_picker/pywal.sh
     fi
     
-    cp -r "$HOME/.BSPWM/Themes/$SELECTED_THEME/.p10k.zsh" "$HOME/"
     cp -r "$HOME/.BSPWM/Themes/$SELECTED_THEME/Wallpaper" "$HOME/.Wallpaper"
     cp -r $HOME/.BSPWM/Themes/$SELECTED_THEME/colors "$HOME/.config/theme/"
 

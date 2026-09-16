@@ -42,7 +42,7 @@ color_shade2=$2
 color_shade3=$3
 color_shade4=$4
 
-cat > $HOME/.BSPWM/Themes/ZeroColor/colors/bin.sh << EOF
+cat > ~/.BSPWM/Themes/ZeroColor/colors/bin.sh << EOF
 #░█████╗░░█████╗░██╗░░░░░░█████╗░██████╗░░██████╗
 #██╔══██╗██╔══██╗██║░░░░░██╔══██╗██╔══██╗██╔════╝
 #██║░░╚═╝██║░░██║██║░░░░░██║░░██║██████╔╝╚█████╗░
@@ -98,7 +98,7 @@ dusnt_fg="${color7}"
 EOF
 
 
-cat > $HOME/.BSPWM/Themes/ZeroColor/colors/eww.scss << EOF
+cat > ~/.BSPWM/Themes/ZeroColor/colors/eww.scss << EOF
 //_____________      __  __      __ 
 //\_   _____/  \    /  \/  \    /  
 // |    __)_\   \/\/   /\   \/\/   /
@@ -132,7 +132,7 @@ cat > $HOME/.BSPWM/Themes/ZeroColor/colors/eww.scss << EOF
 EOF
 
 
-cat > $HOME/.BSPWM/Themes/ZeroColor/colors/polybar.ini << EOF
+cat > ~/.BSPWM/Themes/ZeroColor/colors/polybar.ini << EOF
 ;; ┌────────────────────────────────────────────────────────────┐
 ;; │░█▀█░█▀█░█░░░█░█░█▀▄░█▀█░█▀▄░░░░░░░░░█▀▀░█▀█░█░░░█▀█░█▀▄░█▀▀│
 ;; │░█▀▀░█░█░█░░░░█░░█▀▄░█▀█░█▀▄░░░░▀░░░░█░░░█░█░█░░░█░█░█▀▄░▀▀█│
@@ -178,14 +178,23 @@ play_alt = ${color1}
 
 EOF
 
-cat > $HOME/.BSPWM/Themes/ZeroColor/colors/rofi.rasi << EOF
+cat > ~/.BSPWM/Themes/ZeroColor/colors/rofi.rasi << EOF
 * {
     font: "JetBrainsMono NF Bold 9";
     background: ${color0};
     background-alt: ${color_shade3};
     foreground: ${color7};
-    selected: ${color2};
+    selected: ${color1};
     active: #9ece6a;
     urgent: ${color2};
 }
+EOF
+
+
+cat > ~/.BSPWM/Themes/ZeroColor/colors/p10k-colors.zsh << EOF
+ICON_FG='${color0}'
+ICON_BG='${color1}'
+
+DIR_FG='${color7}'
+DIR_BG='${color0}'
 EOF

@@ -130,7 +130,7 @@ install_packages(){
     # Paquetes base y entorno BSPWM
     sudo apt install -y \
         bspwm sxhkd rofi feh scrot dunst kitty zsh \
-        adwaita-icon-theme xclip numlockx xdotool \
+        adwaita-icon-theme xclip numlockx xdotool lsd \
         imagemagick mpv playerctl btop acpi bc jq xxhash \
         bat fzf ranger fastfetch cmatrix locate scrub pipx polybar wireless-tools
 
@@ -160,16 +160,12 @@ clone_repositories(){
     git clone https://github.com/Raymo111/i3lock-color.git
     git clone https://github.com/vinceliuice/Qogir-icon-theme.git
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
-    git clone --recursive https://github.com/akinomyoga/ble.sh.git
     sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/.powerlevel10k
 }
 
 compiling_repositories(){
     local dir=$1
     local distro=$2
-
-    cd ~/github/ble.sh
-    make install PREFIX=$HOME/.local
 
     cd ~/github/cava
     ./autogen.sh
@@ -198,9 +194,10 @@ compiling_repositories(){
     sudo make install
 
     # Install EWW
-    if [[ $distro = "parrot" || $distro = "kali" ]]; then
-        sudo apt remove -y rustc cargo || true
-    fi
+    #if [[ $distro = "parrot" || $distro = "kali" ]]; then
+    #    sudo apt remove -y rustc cargo || true
+    #fi
+
     if ! command -v rustup &>/dev/null; then
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
         source "$HOME/.cargo/env"
@@ -210,7 +207,6 @@ compiling_repositories(){
 
     echo -e "\n\n${b}[INFO] PATH ~/.cargo/bin\n${reset}"
     if ! echo "$PATH" | grep -q "$HOME/.cargo/bin"; then
-        echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.bashrc
         echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.zshrc
         export PATH="$HOME/.cargo/bin:$PATH"
     fi
@@ -221,15 +217,16 @@ compiling_repositories(){
 }
 
 config_pulseaudio(){
-    systemctl --user stop pipewire pipewire-pulse 2>/dev/null
-    systemctl --user disable pipewire pipewire-pulse 2>/dev/null
+    systemctl --user stop pipewire pipewire-pulse wireplumber 2>/dev/null
+    systemctl --user disable pipewire pipewire-pulse wireplumber 2>/dev/null
+    systemctl --user mask pipewire pipewire-pulse wireplumber 2>/dev/null
 
-    sudo apt remove --purge -y pipewire pipewire-audio-client-libraries pipewire-pulse wireplumber 2>/dev/null
     sudo apt install -y pulseaudio pulseaudio-utils
-    rm -rf ~/.config/pulse
 
-    pulseaudio --kill 2>/dev/null
-    pulseaudio --start
+    systemctl --user unmask pulseaudio 2>/dev/null
+    systemctl --user enable --now pulseaudio
+
+    rm -rf ~/.config/pulse
 }
 
 install_neovim() {
@@ -279,10 +276,7 @@ themes_config(){
     local dir=$1
     local distro=$2
 
-    # Install lsd
-    sudo dpkg -i $dir/installer/lsd.deb
-
-    # HackNerdFonts and Polybar fonts
+    # NerdFonts and Polybar fonts
     sudo cp -v $dir/installer/fonts/HNF/* /usr/local/share/fonts/
     sudo cp -v $dir/installer/fonts/polybar/* /usr/share/fonts/truetype/
 
@@ -291,12 +285,9 @@ themes_config(){
 
     # Config .p10k.zsh and .zshrc
     rm -rf ~/.zshrc
-    cp -v $dir/installer/.zshrc ~/.zshrc && chmod +x ~/.zshrc
-    cp -v $dir/Themes/Nord/.p10k.zsh ~/.p10k.zsh
-    sudo cp -v $dir/installer/.p10k.zsh-root /root/.p10k.zsh
-
-    # Bashrc
-    cp -v $dir/installer/.bashrc ~/.bashrc && chmod +x ~/.bashrc
+    cp -v $dir/installer/.zshrc ~/.zshrc
+    cp -v $dir/installer/.p10k.zsh ~/.p10k.zsh
+    sudo cp -v $dir/installer/.p10k_root.zsh /root/.p10k.zsh
 
     # Notify
     cp -rf $dir/installer/Config/dunst/ ~/.config/
@@ -315,7 +306,9 @@ themes_config(){
         sudo apt install -y zsh-autocomplete
         sudo chsh -s /usr/bin/zsh
         sudo usermod --shell /usr/bin/zsh root
-    else
+    fi
+    
+    if hostnamectl status | grep -iq 'vmware'; then
         sudo bash -c 'echo "deb http://deb.debian.org/debian bookworm main contrib non-free" > /etc/apt/sources.list.d/tmp-debian.list'
         sudo apt update
         sudo apt install -y xserver-xorg-video-vmware
@@ -334,7 +327,6 @@ themes_config(){
 
     pip install pywal16 --break-system-packages
     pip install cloudscraper --break-system-packages
-    pip install revshellgen --break-system-packages
     sudo pipx install git+https://github.com/brightio/penelope
 
     # Sintaxis en nano
@@ -373,7 +365,7 @@ elif grep -q -i "parrot" /etc/os-release; then
     echo -e "${sb}[+] ${y}Distro ${g}Parrot OS${reset}\n"
     distro=parrot
 elif grep -q -i "debian" /etc/os-release; then
-    echo -e "${sb}[+] ${y}Distro ${g}DEBIAN${reset}\n"
+    echo -e "${sb}[+] ${g}DEBIAN${reset}\n"
     distro=debian
 else
     echo -e "\n${y}[WARNING] Distribution not detected or identified${reset}"

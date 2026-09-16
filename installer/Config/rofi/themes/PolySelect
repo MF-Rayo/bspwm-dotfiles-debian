@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
+POLYBAR_PREVIEW="$HOME/.config/rofi/themes/preview/Polybar"
 BAR_EWW="$HOME/.config/eww/Bar.sh"
 BAR_POLYBAR="$HOME/.config/polybar/launch.sh"
-POLYBAR_PREVIEW="$HOME/.BSPWM/.img/Polybar"
 CONFIG="$HOME/.config/theme/config.json"
 POLYBAR=$(jq -r '.polybar' "$CONFIG")
 ROFI="$HOME/.config/rofi/themes/config.rasi"

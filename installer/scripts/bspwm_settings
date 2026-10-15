@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-
 # Special Character ' ㅤ ' 
-
 kitty_style(){
     local setting="$1"
     if [[ "$setting" == "bg-alt" ]]; then
@@ -12,7 +10,6 @@ kitty_style(){
     kill -USR1 $(pgrep -x kitty)
     pkill -USR1 cava 2>/dev/null
 }
-
 picom_style(){
     local style="$1"
     if [[ "$style" == "100" ]]; then
@@ -21,18 +18,15 @@ picom_style(){
         cp -r ~/.BSPWM/installer/Config/picom/no_blur_picom.conf ~/.config/picom/picom.conf
     fi
 }
-
 border_style(){
     local border="$1"
     sed -i -e "s/bspc config border_width.*/bspc config border_width $border/g" ~/.config/bspwm/bspwmrc
     bspc wm -r
 }
-
 interpreter_shell(){
     local inter="$1"
     sed -i -e "s/shell .*/shell $inter/g" ~/.config/kitty/kitty.conf
 }
-
 kill_(){
     local bar="$1"
     if [[ "$bar" == "polybar" ]]; then
@@ -43,14 +37,17 @@ kill_(){
         pkill -f "$HOME/.config/eww/Bar.sh" 
     fi
 }
-
+app_launcher(){
+  local style="$1"
+  cp -r "$HOME/.config/rofi/application/$style" "$HOME/.config/rofi/application/apps.rasi"
+}
 MENU="$(rofi -no-config -no-lazy-grab -sep "|" -dmenu -i -p ' Settings' \
 -theme-str "entry { placeholder: \"BSPWM\"; }" -theme $HOME/.config/rofi/notes/note.rasi \
 <<< "󰄛 KittyㅤTransparencyㅤ80%|󰄛 KittyㅤTransparencyㅤ50%|󰄛 KittyㅤTransparencyㅤ0%|󰄛 KittyㅤBackgroundㅤAlt|󱂬 PicomㅤBlurㅤ100%| \
-󱂬 PicomㅤBlurㅤ0%|󰢡 EnableㅤBorders|󰢤 DisableㅤBorders|󱓇 KillㅤPolybar|󱓇 KillㅤEWW|")"
+󱂬 PicomㅤBlurㅤ0%|󰢡 EnableㅤBorders|󰢤 DisableㅤBorders|󱓇 KillㅤPolybar|󱓇 KillㅤEWW|󰀻 AppㅤLauncherㅤ-ㅤStyleㅤ1|󰀻 AppㅤLauncherㅤ-ㅤStyleㅤ2|")"
             case "$MENU" in
-				*KittyㅤTransparencyㅤ80%) kitty_style "0.5" ;;
-				*KittyㅤTransparencyㅤ50%) kitty_style "0.8" ;;
+                *KittyㅤTransparencyㅤ80%) kitty_style "0.5" ;;
+                *KittyㅤTransparencyㅤ50%) kitty_style "0.8" ;;
                 *KittyㅤTransparencyㅤ0%) kitty_style "10" ;;
                 *KittyㅤBackgroundㅤAlt) kitty_style "bg-alt" ;;
                 *PicomㅤBlurㅤ100%) picom_style "100" ;;
@@ -59,4 +56,6 @@ MENU="$(rofi -no-config -no-lazy-grab -sep "|" -dmenu -i -p ' Settings' \
                 *DisableㅤBorders) border_style "0" ;;
                 *KillㅤPolybar) kill_ "polybar" ;;
                 *KillㅤEWW) kill_ "eww" ;;
+                *AppㅤLauncherㅤ-ㅤStyleㅤ1) app_launcher "style-1.rasi" ;;
+                *AppㅤLauncherㅤ-ㅤStyleㅤ2) app_launcher "style-2.rasi" ;;
             esac 

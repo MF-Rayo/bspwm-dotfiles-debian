@@ -79,6 +79,7 @@ case ${chosen} in
 		run_cmd --reboot
         ;;
     $lock)
+		sleep 0.5
 		~/.config/i3lock-color/i3lock-everblush
         ;;
     #$suspend)

@@ -308,7 +308,7 @@ themes_config(){
     sudo wget -q https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh
 
     if [ "$distro" = "parrot" ]; then
-        sudo apt install -y zsh-autocomplete
+        #sudo apt install -y zsh-autocomplete
         sudo chsh -s /usr/bin/zsh
         sudo usermod --shell /usr/bin/zsh root
     fi
@@ -336,6 +336,7 @@ themes_config(){
 
     # Sintaxis en nano
     echo 'include "/usr/share/nano/*.nanorc"' > ~/.nanorc
+    
     sudo sed -i 's/\r$//' /usr/local/bin/shortcuts
 
     sudo rm -rf ~/github
@@ -400,10 +401,10 @@ execute "Applying theme configuration"  "Theme configuration applied successfull
 execute "Saving backup of repo"         "Backup saved to ~/.BSPWM successfully"     backup_repo
 execute "Updating system"               "System updated successfully"               system_update
 
-if [[ $distro = "debian" ]]; then
-    sudo apt install lightdm xorg -y
-    sudo systemctl enable --now lightdm
-    sudo chsh -s /usr/bin/zsh root
-fi
+#if [[ $distro = "debian" ]]; then
+#    sudo apt install lightdm xorg -y
+#    sudo systemctl enable --now lightdm
+#    sudo chsh -s /usr/bin/zsh root
+#fi
 
 echo -e "\n${g}[✔] ${sb}BSPWM ${y}installed successfully${reset}\n"

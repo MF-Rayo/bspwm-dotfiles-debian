@@ -19,8 +19,8 @@ alt + s
 #  / //_ </ / _ \/ __/  '_/
 # /_/____/_/\___/\__/_/\_\ 
                          
-shift + l
-	~/.config/i3lock-color/i3lock-everblush
+#shift + l
+#	~/.config/i3lock-color/i3lock-everblush
 #────────────────────────────────────────────────────────
 
 

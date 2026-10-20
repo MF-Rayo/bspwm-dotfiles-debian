@@ -40,8 +40,8 @@ else
     
     if [ "$BAR" = "Cuts" ] || [ "$BAR" = "Shapes" ]; then
         tp="34"; bp="34"
-    elif [ "$BAR" = "Lofi" ]; then
-        tp="4"; bp="34"
+    elif [ "$BAR" = "Forest" ]; then
+        tp="2"; bp="4"
     else
         tp="52"; bp="4"
     fi

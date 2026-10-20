@@ -24,7 +24,7 @@ format_output() {
 title=$(playerctl metadata xesam:title 2>/dev/null)
 
 if [[ -z "$title" ]]; then
-    if [[ "$polybar" == "Pacman" ]]; then
+    if [[ "$polybar" == "Pacman" || "$polybar" == "Forest" ]]; then
         echo ""
         exit 0
     else    
@@ -34,7 +34,7 @@ if [[ -z "$title" ]]; then
 fi
 
 if [[ "$polybar" == "Pacman" ]]; then
-    echo "%{F$play}  [  %{F$fg_icon}$(format_output "$title")%{F$play}  ]"
+    echo "%{F$play}  [ %{F$fg_icon}$(format_output "$title")%{F$play} ]"
 else
     echo "  $(format_output "$title")"
 fi

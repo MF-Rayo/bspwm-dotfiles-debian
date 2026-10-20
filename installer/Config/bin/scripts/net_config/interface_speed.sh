@@ -2,9 +2,12 @@
 source ~/.config/theme/colors/bin.sh 
 polybar=$(jq -r '.polybar' "$HOME/.config/theme/config.json")
 
-if [[ "$polybar" = "Lofi" || "$polybar" = "Pacman" || "$polybar" = "Cuts" ]]; then
+if [[ "$polybar" = "Forest" || "$polybar" = "Cuts" ]]; then
     DOWN_ARROW=""
-    UP_ARROW=""
+    UP_ARROW=""   
+elif [[ "$polybar" = "Pacman" ]]; then
+    DOWN_ARROW="󰄠"
+    UP_ARROW="󰄝"
 else
     DOWN_ARROW=""
     UP_ARROW=""

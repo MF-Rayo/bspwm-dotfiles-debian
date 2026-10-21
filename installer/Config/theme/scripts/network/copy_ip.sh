@@ -1,7 +1,7 @@
 #!/bin/bash
 export DISPLAY=:0
 export XAUTHORITY="/home/$(whoami)/.Xauthority"
-source ~/.config/bin/scripts/net_config/get_interface.sh
+source ~/.config/theme/scripts/network/interface.sh
 
 json="$HOME/.target.json"
 vpn=$(/usr/sbin/ifconfig tun0 2>/dev/null | grep "inet " | awk '{print $2}')

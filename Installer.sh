@@ -332,7 +332,7 @@ themes_config(){
     chmod +x \
     ~/.config/theme/scripts/*.sh \
     ~/.config/theme/scripts/music/*.sh \
-    ~/.config/theme/scripts/net_config/*.sh \
+    ~/.config/theme/scripts/network/*.sh \
     ~/.config/theme/scripts/color_picker/*.sh \
     ~/.config/bspwm/* \
     ~/.config/eww/*.sh \
@@ -343,6 +343,13 @@ themes_config(){
     ~/.config/ranger/*.sh \
     ~/.config/rofi/wallpaper/components/* \
     ~/.config/rofi/{notes,wallpaper,music,power_menu,screenshot,themes}/*
+
+    if hostnamectl status | grep -iq 'vmware'; then
+        sudo bash -c 'echo "deb http://deb.debian.org/debian bookworm main contrib non-free" > /etc/apt/sources.list.d/tmp-debian.list'
+        sudo apt update
+        sudo apt install -y xserver-xorg-video-vmware
+        sudo rm /etc/apt/sources.list.d/tmp-debian.list
+    fi
 }
 
 
@@ -394,12 +401,5 @@ execute "Updating system"               "System updated successfully"           
 #    sudo systemctl enable --now lightdm
 #    sudo chsh -s /usr/bin/zsh root
 #fi
-
-if hostnamectl status | grep -iq 'vmware'; then
-    sudo bash -c 'echo "deb http://deb.debian.org/debian bookworm main contrib non-free" > /etc/apt/sources.list.d/tmp-debian.list'
-    sudo apt update
-    sudo apt install -y xserver-xorg-video-vmware
-    sudo rm /etc/apt/sources.list.d/tmp-debian.list
-fi
 
 echo -e "\n${g}[✔] ${sb}BSPWM ${y}installed successfully${reset}\n"

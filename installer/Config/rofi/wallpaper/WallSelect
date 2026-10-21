@@ -20,36 +20,45 @@ process_image() {
     local md5_file="$DIR_PREVIEWS/.${name}.md5"
     local lock_file="$DIR_PREVIEWS/.lock_${name}"
     local current_md5
+
     current_md5=$(xxh64sum "$file" | cut -d " " -f1)
+
     (
         flock -x 9
+
         if [ ! -f "$cache_file" ] || [ "$current_md5" != "$(cat "$md5_file" 2>/dev/null)" ]; then
             convert "$file" -resize 272x272^ -gravity center \
                 -crop 272x272+0+0 +repage "$cache_file"
             echo "$current_md5" > "$md5_file"
         fi
+
         rm -f "$lock_file"
     ) 9>"$lock_file"
 }
 
-process_video(){
+process_video() {
     local file="$1"
     local name=$(basename "$file")
     local cache_file="$DIR_PREVIEWS/${name}.png"
     local md5_file="$DIR_PREVIEWS/.${name}.md5"
     local lock_file="$DIR_PREVIEWS/.lock_${name}"
     local current_md5
+
     current_md5=$(xxh64sum "$file" | cut -d " " -f1)
+
     (
         flock -x 9
+
         if [ -f "$cache_file" ] && [ "$current_md5" = "$(cat "$md5_file" 2>/dev/null)" ]; then
             rm -f "$lock_file"
             exit 0
         fi
+
         nice -n 19 ionice -c 3 \
         ffmpeg -threads 1 -y -ss 2 -i "$file" -frames:v 1 \
             -vf "scale=272:272:force_original_aspect_ratio=increase,crop=272:272" \
             -q:v 5 "$cache_file" >/dev/null 2>&1
+
         echo "$current_md5" > "$md5_file"
         rm -f "$lock_file"
     ) 9>"$lock_file"
@@ -58,17 +67,26 @@ process_video(){
 export -f process_image process_video
 export DIR_PREVIEWS
 
-find "$DIR_WALLPAPER" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) -print0 | \
+
+# Imágenes
+find "$DIR_WALLPAPER" -maxdepth 1 -type f \
+    \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) -print0 | \
     xargs -0 -P "$(get_optimal_jobs)" -I {} nice -n 19 ionice -c 3 bash -c 'process_image "$1"' _ {}
 
-find "$DIR_WALLPAPER" -maxdepth 1 -type f \( -iname "*.mp4" -o -iname "*.mkv" -o -iname "*.webm" \) -print0 | \
+# Videos
+find "$DIR_WALLPAPER" -maxdepth 1 -type f \
+    \( -iname "*.mp4" -o -iname "*.mkv" -o -iname "*.webm" \) -print0 | \
     xargs -0 -P 2 -I {} bash -c 'process_video "$1"' _ {}
 
-# Clean files
+
+#  LIMPIAR PREVIEWS HUÉRFANAS
+
 for cached in "$DIR_PREVIEWS"/*.png; do
     [ -f "$cached" ] || continue
-    name=$(basename "$cached" .png)        
+
+    name=$(basename "$cached" .png)
     original="${DIR_WALLPAPER}/${name}"
+
     if [ ! -f "$original" ]; then
         rm -f "$cached" \
             "${DIR_PREVIEWS}/.${name}.md5" \
@@ -76,25 +94,30 @@ for cached in "$DIR_PREVIEWS"/*.png; do
     fi
 done
 
+#  MENÚ ROFI
+
 MENU_FILE=$(mktemp "$DIR_PREVIEWS/wall_menu_XXXX.txt")
 
 while IFS= read -r -d '' WALL; do
     NAME=$(basename "$WALL")
     THUMB="$DIR_PREVIEWS/${NAME}.png"
-    [ -f "$THUMB" ] || continue   
+
+    [ -f "$THUMB" ] || continue
+
     printf '%s\000icon\037%s\n' "$NAME" "$THUMB" >> "$MENU_FILE"
 done < <(find "$DIR_WALLPAPER" -maxdepth 1 -type f \
-    \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.mp4" -o \
-    -iname "*.mkv" -o -iname "*.webm" \) ! -iname "AppliedWallpaper.png" -print0 | LC_ALL=C sort -z)
+    \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \
+       -o -iname "*.mp4" -o -iname "*.mkv" -o -iname "*.webm" \) \
+    ! -iname "AppliedWallpaper.png" -print0 | LC_ALL=C sort -z)
 
 wall_selection=$(rofi -input "$MENU_FILE" -dmenu -p "󰥱 Wallpapers" -show-icons -icon-size "272" \
-    -theme-str '     
+    -theme-str '
         window {
             height:                      760px;
-        } 
+        }
         element-text {
             font:               "JetBrainsMono NF Bold 10";
-            background-color:   transparent; 
+            background-color:   transparent;
             size:               10px;
             text-color:         @selected;
             padding:            10px;
@@ -102,14 +125,17 @@ wall_selection=$(rofi -input "$MENU_FILE" -dmenu -p "󰥱 Wallpapers" -show-icon
             vertical-align:     0.5;
             expand:             true;
         }
-        element-text selected { 
+        element-text selected {
             text-color:         @background;
         }
-        element selected { 
+        element selected {
             background-color:   @selected;
         }' -theme $ROFI
 )
+
 rm -f "$MENU_FILE"
+
+#  APLICAR WALLPAPER
 
 if [ -n "$wall_selection" ]; then
     selected="$DIR_WALLPAPER/${wall_selection}"
@@ -128,15 +154,18 @@ if [ -n "$wall_selection" ]; then
 
     elif echo "$ext" | grep -iqE 'mp4|mkv|webm'; then
         resolution=$(xrandr | grep '*' | awk '{print $1}')
+
         xwinwrap -g "${resolution}+0+0" -ni -s -st -sp -b -nf -fdt -argb -- \
             mpv -wid WID --loop --no-audio --no-terminal --panscan=1 "$selected" &
 
+        # Frame estático del video (segundo plano)
         (
             nice -n 19 ionice -c 3 ffmpeg -y -i "$selected" \
                 -vf "select=eq(n\,0)" -vframes 1 \
                 "${DIR_WALLPAPER}/AppliedWallpaper.png" 2>/dev/null
 
             static_name="Static-${wall_selection%.*}.png"
+
             for dest in \
                 "$HOME/.Wallpaper/${static_name}" \
                 "$HOME/.BSPWM/Themes/$THEME/Wallpaper/AppliedWallpaper.png" \
@@ -147,8 +176,10 @@ if [ -n "$wall_selection" ]; then
         ) &
     fi
 
+    # Tema ZeroColor (segundo plano)
     if [ "$THEME" = "ZeroColor" ]; then
         (
+            # Cerrar barras
             if pgrep -x polybar > /dev/null; then
                 pkill polybar
                 pkill -f "$HOME/.config/polybar/launch.sh"
@@ -158,19 +189,23 @@ if [ -n "$wall_selection" ]; then
                 pkill eww
                 pkill -f "$HOME/.config/eww/Bar.sh"
             fi
-           
+
+            # Generar colores con pywal
             if echo "$ext" | grep -iqE 'jpg|jpeg|png|webp'; then
-                ~/.config/bin/scripts/color_picker/pywal.sh --dir "$HOME/.Wallpaper/AppliedWallpaper.png"
+                ~/.config/theme/scripts/color_picker/pywal.sh --dir "$HOME/.Wallpaper/AppliedWallpaper.png"
             else
-                ~/.config/bin/scripts/color_picker/pywal.sh --dir "$DIR_PREVIEWS/$wall_selection.png"
+                ~/.config/theme/scripts/color_picker/pywal.sh --dir "$DIR_PREVIEWS/$wall_selection.png"
             fi
 
+            # Limpiar configs anteriores
             rm -rf "$HOME/.config/cava/config" "$HOME/.config/dunst/colors.conf" \
                 "$HOME/.BSPWM/Themes/ZeroColor/Wallpaper/AppliedWallpaper.*"
-            
+
             cp -r "$HOME/.BSPWM/Themes/ZeroColor/colors" "$HOME/.config/theme/"
 
+            # Copiar colores de eww
             EWW="$HOME/.BSPWM/Themes/ZeroColor/colors/eww.scss"
+
             for dest in \
                 "$HOME/.config/eww/colors.scss" \
                 "$HOME/.config/eww/widgets/calendar/colors.scss" \
@@ -180,14 +215,17 @@ if [ -n "$wall_selection" ]; then
                 cp "$EWW" "$dest"
             done
 
-            ~/.config/bin/scripts/color_picker/colors.sh
+            # Aplicar colores y recargar
+            ~/.config/theme/scripts/color_picker/colors.sh
             pkill -USR1 cava 2>/dev/null
             pkill dunst
+
             . ~/.cache/wal/colors.sh
             bspc config focused_border_color "${color1}"
             bspc config normal_border_color  "#3e3e3e"
             bspc wm -r
         ) &
     fi
+
     wait
 fi

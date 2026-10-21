@@ -9,7 +9,7 @@ super + Return
 	LIBGL_ALWAYS_SOFTWARE=1 kitty
 
 alt + s	
-	~/.config/bin/scripts/ScrathPad.sh
+	~/.config/theme/scripts/scrath_pad.sh
 #────────────────────────────────────────────────────────
 
 
@@ -67,10 +67,10 @@ super + ctrl + d
 #                                      /___/          
 
 F1
-	~/.config/bin/scripts/copy_ip.sh --myip
+	~/.config/theme/scripts/network/copy_ip.sh --myip
 
 F2
-	~/.config/bin/scripts/copy_ip.sh --target
+	~/.config/theme/scripts/network/copy_ip.sh --target
 #────────────────────────────────────────────────────────
 
 
@@ -82,7 +82,7 @@ F2
 #          /___/                           
 
 super + k
-    ~/.config/bin/scripts/keyboard.sh
+    ~/.config/theme/scripts/keyboard.sh
 #────────────────────────────────────────────────────────
 
 

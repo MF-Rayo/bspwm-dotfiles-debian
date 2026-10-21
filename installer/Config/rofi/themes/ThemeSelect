@@ -35,13 +35,13 @@ else
         "$HOME/.Wallpaper" 2>/dev/null
 
     if [ "$SELECTED_THEME" = "ZeroColor" ]; then
-        ~/.config/bin/scripts/color_picker/pywal.sh
+        ~/.config/theme/scripts/color_picker/pywal.sh
     fi
     
     cp -r "$HOME/.BSPWM/Themes/$SELECTED_THEME/Wallpaper" "$HOME/.Wallpaper"
     cp -r $HOME/.BSPWM/Themes/$SELECTED_THEME/colors "$HOME/.config/theme/"
 
-    ~/.config/bin/scripts/color_picker/colors.sh
+    ~/.config/theme/scripts/color_picker/colors.sh
 
     EWW="$HOME/.BSPWM/Themes/$SELECTED_THEME/colors/eww.scss"
     for dest in \

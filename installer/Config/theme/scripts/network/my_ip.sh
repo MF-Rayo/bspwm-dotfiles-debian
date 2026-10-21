@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source ~/.config/theme/colors/bin.sh 
-source ~/.config/bin/scripts/net_config/get_interface.sh
+source ~/.config/theme/scripts/network/interface.sh
 
 if [ -n "$ACTIVE_INTERFACE" ]; then
     IP=$(/usr/sbin/ifconfig "$ACTIVE_INTERFACE" | grep "inet " | awk '{print $2}')

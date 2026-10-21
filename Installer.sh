@@ -351,7 +351,7 @@ themes_config(){
     ~/.config/eww/scripts/* \
     ~/.config/i3lock-color/* \
     ~/.config/polybar/*.sh \
-    ~/.config/polybar/themes/{Cuts,Lofi,Pacman,Round,Shapes}/*.sh \
+    ~/.config/polybar/themes/{Cuts,Forest,Pacman,Round,Shapes}/*.sh \
     ~/.config/ranger/*.sh \
     ~/.config/rofi/wallpaper/components/* \
     ~/.config/rofi/{notes,wallpaper,music,power_menu,screenshot,themes}/*

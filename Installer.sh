@@ -113,16 +113,14 @@ system_update(){
 install_packages(){
     local distro=$1
 
-    # Parrot 7.3
+    # Parrot 7.4
     if [ "$distro" = "parrot" ]; then
-        sudo apt install -y \
-            libxkbcommon0=1.13.1-1~bpo13+1 \
-            libxkbcommon-x11-0=1.13.1-1~bpo13+1 \
-            libxkbcommon-dev=1.13.1-1~bpo13+1 \
-            libxkbcommon-x11-dev=1.13.1-1~bpo13+1 \
+        sudo apt install -t echo-backports -y \
+            libxkbcommon0 libxkbcommon-x11-0 libxkbcommon-dev libxkbcommon-x11-dev \
             libatk1.0-dev libatk-bridge2.0-dev libatspi2.0-dev \
+            gir1.2-atk-1.0 libatk1.0-0t64 libatk-bridge2.0-0t64 \
             libglib2.0-dev libpango1.0-dev libjson-glib-dev \
-            libwayland-dev libwebp-dev seclists
+            libwayland-dev libwebp-dev seclists 
     # Kali 2026.2
     elif [ "$distro" = "kali" ]; then
         sudo apt install -y libdbusmenu-gtk3-4 seclists

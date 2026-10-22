@@ -9,7 +9,6 @@ An automated installation script to deploy a fully customized BSPWM desktop envi
 - [Features](#features)
 - [Themes](#themes)
 - [Installation & Setup](#install)
-- [Rofi](#rofi)
 - [Keybindings](#shortcuts)
 - [Api Keys](#apikey)
 - [Virtual Machine Setup](#tips)
@@ -62,27 +61,16 @@ cd bspwm-dotfiles-debian && chmod +x Installer.sh
 <a name="themes"></a>
 ## Themes
 
-Switch between built-in color schemes directly through the Rofi selector interface:
-
+| Themes | Themes |
+| :---: | :---: |
 | **Nord** <br> <img width="100%" alt="Nord Theme" src="https://github.com/user-attachments/assets/3c526f3a-5b0c-4be7-83d1-3408e15701a7" /> | **Purple** <br> <img width="100%" alt="Purple Theme" src="https://github.com/user-attachments/assets/d4fcf6de-c3c5-4a17-8517-fe21928cc02d" /> |
 | **Green** <br> <img width="100%" alt="Green Theme" src="https://github.com/user-attachments/assets/a6946ff2-e309-4b8a-87ad-ec7ee173f8ca" /> | **Yellow** <br> <img width="100%" alt="Yellow Theme" src="https://github.com/user-attachments/assets/b17c9ad7-a70b-457e-afc3-a6221ec01e36" /> |
 | **Blue** <br> <img width="100%" alt="Blue Theme" src="https://github.com/user-attachments/assets/42464cae-4455-42b7-838e-f5596235c4d1" /> | **Red** <br> <img width="100%" alt="Red Theme" src="https://github.com/user-attachments/assets/c1b06c3e-1693-4c1f-a45a-8a9d8e7748c5" /> |
 | **Black** <br> <img width="100%" alt="Black Theme" src="https://github.com/user-attachments/assets/6d361bcf-f106-48b6-9f56-18c10bff6a81" /> | **White** <br> <img width="100%" alt="White Theme" src="https://github.com/user-attachments/assets/c2efdb6a-1938-47f5-b197-a133fe735402" /> |
-| **ZeroColor** <br> <img width="100%" alt="ZeroColor Theme" src="https://github.com/user-attachments/assets/2951f0da-cebc-4211-a539-756fbab0b81e" /> |
+| **ZeroColor** <br> <img width="100%" alt="ZeroColor Theme" src="https://github.com/user-attachments/assets/2951f0da-cebc-4211-a539-756fbab0b81e" /> | |
 
 > [!NOTE]
 > The **ZeroColor** theme instantly extracts palette colors from your active wallpaper using [pywal16](https://github.com/eylles/pywal16).
-
----
-
-<a name="rofi"></a>
-## Rofi
-
-| Rofi | Rofi |
-| :---: | :---: |
-| **Polybar Selector**<br>Use `Super` + `Ctrl` + `P` to open the launcher and switch Polybar styles on the fly.<br><br><img width="100%" alt="Polybar Selector" src="https://github.com/user-attachments/assets/341c9286-78d1-40b5-bdb1-96552d52c35c" /> | **Theme Selector**<br>Use `Super` + `Ctrl` + `T` to open the launcher and switch theme styles on the fly.<br><br><img width="100%" alt="Theme Selector" src="https://github.com/user-attachments/assets/02498d4b-14b3-46fa-8d82-608e9bc44886" /> |
-| **Wallpaper Selector**<br>Use `Super` + `Ctrl` + `W` to open the launcher and switch wallpaper styles on the fly.<br><br><img width="100%" alt="Wallpaper Selector" src="https://github.com/user-attachments/assets/7d5ebbef-0da1-45e1-8a31-2cb88898e38f" /> | **App Launcher**<br>Use `Super` + `D` to open the launcher and launch applications.<br><br><img width="100%" alt="App Launcher" src="https://github.com/user-attachments/assets/d52205bb-ce5a-4234-8a1d-61c5365f5b28" /> |
-| **Music Preview**<br>Use `Super` + `M` to open the music preview.<br><br><img width="100%" alt="Music Preview" src="https://github.com/user-attachments/assets/4155c1eb-e7a1-4921-abb8-c64e21560650" /> | |
 
 ---
 

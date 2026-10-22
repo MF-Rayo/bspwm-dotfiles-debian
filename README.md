@@ -1,6 +1,6 @@
 # Dotfiles & BSPWM Installer for Debian
 
-<img width="1774" height="887" alt="Image" src="https://github.com/user-attachments/assets/a3591174-c3aa-4bf3-884f-56ccbd255f9a" />
+<video width="100%" height="auto" src="https://github.com/user-attachments/assets/54980b56-b841-4065-a127-b8a27afe88ad"></video>
 
 An automated installation script to deploy a fully customized BSPWM desktop environment. This setup includes a choice of two shells, attractive desktop widgets, keyboard shortcuts, and dynamic color extraction from wallpapers on Debian based distributions.
 
@@ -13,10 +13,6 @@ An automated installation script to deploy a fully customized BSPWM desktop envi
 - [Api Keys](#apikey)
 - [Virtual Machine Setup](#tips)
 - [Credits & External Resources](#credits)
----
-
-<video width="100%" height="auto" src="https://github.com/user-attachments/assets/54980b56-b841-4065-a127-b8a27afe88ad"></video>
-
 
 ---
 <a name="features"></a>

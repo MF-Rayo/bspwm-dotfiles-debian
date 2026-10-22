@@ -68,7 +68,7 @@ Switch between built-in color schemes directly through the Rofi selector interfa
 | **Green** <br> <img width="100%" alt="Green Theme" src="https://github.com/user-attachments/assets/a6946ff2-e309-4b8a-87ad-ec7ee173f8ca" /> | **Yellow** <br> <img width="100%" alt="Yellow Theme" src="https://github.com/user-attachments/assets/b17c9ad7-a70b-457e-afc3-a6221ec01e36" /> |
 | **Blue** <br> <img width="100%" alt="Blue Theme" src="https://github.com/user-attachments/assets/42464cae-4455-42b7-838e-f5596235c4d1" /> | **Red** <br> <img width="100%" alt="Red Theme" src="https://github.com/user-attachments/assets/c1b06c3e-1693-4c1f-a45a-8a9d8e7748c5" /> |
 | **Black** <br> <img width="100%" alt="Black Theme" src="https://github.com/user-attachments/assets/6d361bcf-f106-48b6-9f56-18c10bff6a81" /> | **White** <br> <img width="100%" alt="White Theme" src="https://github.com/user-attachments/assets/c2efdb6a-1938-47f5-b197-a133fe735402" /> |
-| **ZeroColor** <br> <img width="100%" alt="ZeroColor Theme" src="https://github.com/user-attachments/assets/2951f0da-cebc-4211-a539-756fbab0b81e" /> | |
+| **ZeroColor** <br> <img width="100%" alt="ZeroColor Theme" src="https://github.com/user-attachments/assets/2951f0da-cebc-4211-a539-756fbab0b81e" /> |
 
 > [!NOTE]
 > The **ZeroColor** theme instantly extracts palette colors from your active wallpaper using [pywal16](https://github.com/eylles/pywal16).

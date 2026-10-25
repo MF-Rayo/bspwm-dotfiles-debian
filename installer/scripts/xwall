@@ -28,7 +28,7 @@ echo -e "\n${g} Descargando Wallpaper${o}\n"
 
 cd "/tmp" || exit
 
-git clone https://github.com/MF-Rayo/Walls.git
+git clone https://github.com/MF-Rayo/Walls.git --depth=1
 
 if [ -d "/tmp/Walls" ]; then
     temas=("White" "Black" "Blue" "Nord" "Red" "Purple" "Yellow" "Green")
